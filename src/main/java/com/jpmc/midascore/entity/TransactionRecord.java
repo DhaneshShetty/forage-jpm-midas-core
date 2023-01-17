@@ -27,14 +27,18 @@ public class TransactionRecord {
     @Column(nullable = false)
     private float amount;
 
+    @Column(nullable = false)
+    private float incentive;
+
 
     public TransactionRecord() {
     }
 
-    public TransactionRecord(float amount, UserRecord sender, UserRecord receiver) {
+    public TransactionRecord(float amount, UserRecord sender, UserRecord receiver,float incentive) {
         this.amount = amount;
         this.sender = sender;
         this.receiver = receiver;
+        this.incentive = incentive;
     }
 
     public long getId() {
@@ -44,6 +48,24 @@ public class TransactionRecord {
     public void setId(long id) {
         this.id = id;
     }
+
+
+    public float getAmount() {
+        return this.amount;
+    }
+
+    public void setAmount(float amount) {
+        this.amount = amount;
+    }
+
+    public float getIncentive() {
+        return this.incentive;
+    }
+
+    public void setIncentive(float incentive) {
+        this.incentive = incentive;
+    }
+
 
     public UserRecord getSender() {
         return this.sender;
@@ -76,6 +98,25 @@ public class TransactionRecord {
         return this;
     }
 
+
+    public TransactionRecord(long id, UserRecord sender, UserRecord receiver, float amount, float incentive) {
+        this.id = id;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.amount = amount;
+        this.incentive = incentive;
+    }
+
+    public TransactionRecord amount(float amount) {
+        setAmount(amount);
+        return this;
+    }
+
+    public TransactionRecord incentive(float incentive) {
+        setIncentive(incentive);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -83,13 +124,13 @@ public class TransactionRecord {
         if (!(o instanceof TransactionRecord)) {
             return false;
         }
-        TransactionRecord transaction = (TransactionRecord) o;
-        return id == transaction.id && Objects.equals(sender, transaction.sender) && Objects.equals(receiver, transaction.receiver);
+        TransactionRecord transactionRecord = (TransactionRecord) o;
+        return id == transactionRecord.id && Objects.equals(sender, transactionRecord.sender) && Objects.equals(receiver, transactionRecord.receiver) && amount == transactionRecord.amount && incentive == transactionRecord.incentive;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, sender, receiver);
+        return Objects.hash(id, sender, receiver, amount, incentive);
     }
 
     @Override
@@ -98,8 +139,11 @@ public class TransactionRecord {
             " id='" + getId() + "'" +
             ", sender='" + getSender() + "'" +
             ", receiver='" + getReceiver() + "'" +
+            ", amount='" + getAmount() + "'" +
+            ", incentive='" + getIncentive() + "'" +
             "}";
     }
+   
 
 
 }

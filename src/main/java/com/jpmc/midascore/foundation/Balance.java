@@ -1,9 +1,11 @@
 package com.jpmc.midascore.foundation;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Balance {
+public class Balance implements Serializable {
     private float amount;
 
     public Balance() {
