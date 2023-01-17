@@ -7,3 +7,6 @@ spring:
 
 general:
   kafka-topic: topic1
+
+server:
+  port: 33400
