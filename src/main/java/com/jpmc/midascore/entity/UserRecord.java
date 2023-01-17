@@ -1,5 +1,8 @@
 package com.jpmc.midascore.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +17,12 @@ public class UserRecord {
 
     @Column(nullable = false)
     private float balance;
+
+    @OneToMany(mappedBy = "sender", fetch = FetchType.LAZY, orphanRemoval = false)
+    private List<TransactionRecord> sentTransaction = new ArrayList<>();
+
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY, orphanRemoval = false)
+    private List<TransactionRecord> receivedTransaction = new ArrayList<>();
 
     protected UserRecord() {
     }
@@ -42,5 +51,28 @@ public class UserRecord {
 
     public void setBalance(float balance) {
         this.balance = balance;
+    }
+    
+    public void setId(long id) {
+        this.id = id;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<TransactionRecord> getSentTransaction() {
+        return this.sentTransaction;
+    }
+
+    public void setSentTransaction(List<TransactionRecord> sentTransaction) {
+        this.sentTransaction = sentTransaction;
+    }
+
+    public List<TransactionRecord> getReceivedTransaction() {
+        return this.receivedTransaction;
+    }
+
+    public void setReceivedTransaction(List<TransactionRecord> receivedTransaction) {
+        this.receivedTransaction = receivedTransaction;
     }
 }
